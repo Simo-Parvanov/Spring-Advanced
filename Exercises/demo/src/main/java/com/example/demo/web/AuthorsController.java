@@ -10,7 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.util.List;
 
 @Controller
-@RequestMapping("/author")
+@RequestMapping("/authors")
 public class AuthorsController {
     private final AuthorService authorService;
 
