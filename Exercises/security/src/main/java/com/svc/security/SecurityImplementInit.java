@@ -22,32 +22,34 @@ public class SecurityImplementInit implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        UserEntity user = new UserEntity();
-        user.setName("user");
-        user.setPassword(passwordEncoder.encode("user"));
-        user.setEnabled(true);
+        if (userRepository.count() == 0) {
+            UserEntity user = new UserEntity();
+            user.setName("user");
+            user.setPassword(passwordEncoder.encode("user"));
+            user.setEnabled(true);
 
-        AuthorityEntity authorityEntity = new AuthorityEntity();
-        authorityEntity.setName("ROLE_USER");
-        authorityEntity.setUser(user);
+            AuthorityEntity authorityEntity = new AuthorityEntity();
+            authorityEntity.setName("ROLE_USER");
+            authorityEntity.setUser(user);
 
-        user.setAuthorities(List.of(authorityEntity));
-        userRepository.save(user);
+            user.setAuthorities(List.of(authorityEntity));
+            userRepository.save(user);
 
-        UserEntity admin = new UserEntity();
-        admin.setName("admin");
-        admin.setPassword(passwordEncoder.encode("admin"));
-        admin.setEnabled(true);
+            UserEntity admin = new UserEntity();
+            admin.setName("admin");
+            admin.setPassword(passwordEncoder.encode("admin"));
+            admin.setEnabled(true);
 
-        AuthorityEntity adminUser = new AuthorityEntity();
-        adminUser.setName("ROLE_USER");
-        adminUser.setUser(admin);
+            AuthorityEntity adminUser = new AuthorityEntity();
+            adminUser.setName("ROLE_USER");
+            adminUser.setUser(admin);
 
-        AuthorityEntity adminAdmin = new AuthorityEntity();
-        adminAdmin.setName("ROLE_ADMIN");
-        adminAdmin.setUser(admin);
+            AuthorityEntity adminAdmin = new AuthorityEntity();
+            adminAdmin.setName("ROLE_ADMIN");
+            adminAdmin.setUser(admin);
 
-        admin.setAuthorities(List.of(adminUser, adminAdmin));
-        userRepository.save(admin);
+            admin.setAuthorities(List.of(adminUser, adminAdmin));
+            userRepository.save(admin);
+        }
     }
 }
